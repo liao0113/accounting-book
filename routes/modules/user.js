@@ -13,13 +13,13 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
-router.post("/register", async (req, res) => {
-  console.log(req.body);
-  let { name, email, password, confirmPassword } = req.body;
-  const emailExist = await User.findOne({ email });
-  if (emailExist) {
-  }
-});
+// router.post("/register", async (req, res) => {
+//   console.log(req.body);
+//   let { name, email, password, confirmPassword } = req.body;
+//   const emailExist = await User.findOne({ email });
+//   if (emailExist) {
+//   }
+// });
 
 // router.get("/logout",(req,res) =>{
 
