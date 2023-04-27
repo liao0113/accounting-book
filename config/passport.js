@@ -5,10 +5,23 @@ const FacebookStrategy = require("passport-facebook").Strategy;
 
 const User = require("../models/user");
 
-// passport.serializeUser(function (user, done) {
-//   done(null, user._id);
-// });
+passport.serializeUser(function (user, done) {
+  console.log("SErializing user now");
+  done(null, user._id);
+});
 
+passport.deserializeUser(function (_id, done) {
+  console.log("Deserializing user now ");
+  User.findById({ _id })
+    .then((user) => {
+      console.log("found user");
+      done(null, user);
+    })
+    .catch((err) => done(err, null));
+});
+
+passport.deserializeUser;
+//FacebookStrategy
 passport.use(
   new FacebookStrategy(
     {
@@ -37,4 +50,26 @@ passport.use(
       });
     }
   )
+);
+//local Strategy
+passport.use(
+  new LocalStrategy((req, email, password, done) => {
+    User.findOne({ email })
+      .then((user) => {
+        if (!user)
+          return done(null, false, req.flash("msg", "此 email 尚未註冊！"));
+        bcrypt.compare(password, user.password, function (err, result) {
+          if (!result)
+            return done(
+              null,
+              false,
+              req.flash("msg", "email 或密碼輸入錯誤，請再次確認！")
+            );
+          return done(null, user);
+        });
+      })
+      .catch((err) => {
+        done(err, false);
+      });
+  })
 );

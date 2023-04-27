@@ -9,5 +9,5 @@ db.on("error", () => {
 });
 
 db.once("open", () => {
-  console.log("MongoDb connected");
+  console.log("MongoDb atlas connected");
 });

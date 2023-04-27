@@ -5,6 +5,7 @@ const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const session = require("express-session");
+const passport = require("passport");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -30,7 +31,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
+//passport init
+app.use(passport.initialize());
+app.use(passport.session());
+//flash init
 app.use(flash());
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.msg = req.flash("msg");
+  next();
+});
 
 app.use(routes);
 
