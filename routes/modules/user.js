@@ -19,13 +19,13 @@ router.post("/register", async (req, res) => {
   const emailExist = await User.findOne({ email });
   if (emailExist) {
     req.flash("error_msg", "信箱已被註冊過!");
-    return res.redirect("/user/register");
+    return res.redirect("/users/register");
   }
   const newUser = new User({ name, email, password });
   try {
     const savedUser = await newUser.save();
     req.flash("success_msg", "註冊成功");
-    return res.redirect("/user/login");
+    return res.redirect("/users/login");
   } catch (error) {
     console.log(error);
   }
@@ -37,7 +37,7 @@ router.get("/logout", (req, res) => {
       return next(err);
     }
     req.flash("success_msg", "你已經成功登出了!");
-    return res.redirect("/user/login");
+    return res.redirect("/users/login");
   });
 });
 
