@@ -2,7 +2,6 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const LocalStrategy = require("passport-local").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
-
 const User = require("../models/user");
 
 passport.serializeUser(function (user, done) {
@@ -20,7 +19,28 @@ passport.deserializeUser(function (_id, done) {
     .catch((err) => done(err, null));
 });
 
-passport.deserializeUser;
+//local Strategy
+//usernameField:"mail" 是把驗證從預設找username 更變成email
+
+passport.use(
+  new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+    console.log(email, password);
+    User.findOne({ email })
+      .then((user) => {
+        if (!user) return done(null, false);
+        bcrypt.compare(password, user.password, function (err, result) {
+          if (err) return done(null, false);
+          if (!result) {
+            return done(null, false);
+          } else {
+            return done(null, user);
+          }
+        });
+      })
+      .catch((err) => done(null, false));
+  })
+);
+
 //FacebookStrategy
 passport.use(
   new FacebookStrategy(
@@ -50,26 +70,4 @@ passport.use(
       });
     }
   )
-);
-//local Strategy
-passport.use(
-  new LocalStrategy((req, email, password, done) => {
-    User.findOne({ email })
-      .then((user) => {
-        if (!user)
-          return done(null, false, req.flash("msg", "此 email 尚未註冊！"));
-        bcrypt.compare(password, user.password, function (err, result) {
-          if (!result)
-            return done(
-              null,
-              false,
-              req.flash("msg", "email 或密碼輸入錯誤，請再次確認！")
-            );
-          return done(null, user);
-        });
-      })
-      .catch((err) => {
-        done(err, false);
-      });
-  })
 );
