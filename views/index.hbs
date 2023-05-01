@@ -1,0 +1,87 @@
+<section class="container rounded mt-5 py-2">
+  <form action="/filter" class="row" id="filter" onchange="filter.submit()">
+    <div class="form-group col-8 my-3 ml-1">
+      <select
+        class="form-control form-control-sm"
+        id="category"
+        name="category"
+      >
+        <option
+          value="全部"
+          {{isSelected category "全部"}}
+        >依照類別篩選</option>
+        <option
+          value="家居物業"
+          {{isSelected category "家居物業"}}
+        >家居物業</option>
+        <option
+          value="交通出行"
+          {{isSelected category "交通出行"}}
+        >交通出行</option>
+        <option
+          value="休閒娛樂"
+          {{isSelected category "休閒娛樂"}}
+        >休閒娛樂</option>
+        <option
+          value="餐飲食品"
+          {{isSelected category "餐飲食品"}}
+        >餐飲食品</option>
+        <option value="其他" {{isSelected category "其他"}}>其他</option>
+      </select>
+    </div>
+  </form>
+  <div class="row mx-1">
+    <div class="col-12 bg-secondary rounded pt-3">
+      <h4 class="text-light">總金額：</h4>
+      <h1 class="text-right text-warning">
+        $<span class="totalAmount">{{totalAmount items}}</span>
+      </h1>
+    </div>
+  </div>
+  {{#if items}}
+    <div class="row mx-1 mt-3 expense-item">
+      {{#each items}}
+        <ul class="list-group w-100">
+          <li class="list-group-item d-flex px-0 my-2 border-0">
+            <div class="col-8 d-flex pr-0 align-items-center">
+              <h2 class="m-0 text-info" style="width: 15%">
+                <i class="{{this.categoryId.icon}}"></i>
+              </h2>
+              <div class="flex-grow-1 ml-2 text-dark">
+                <h4 class="m-0 mb-1">{{this.name}}</h4>
+                <small class="d-block">{{dateDisplay this.date}}</small>
+              </div>
+              <h4 class="m-0 text-dark text-right">{{this.amount}}</h4>
+            </div>
+            <div class="col-4 d-flex justify-content-center align-items-center">
+              <a
+                type="button"
+                class="btn btn-success"
+                href="/items/{{this._id}}/edit"
+              >修改</a>
+              <form
+                action="/items/{{this._id}}?_method=DELETE"
+                method="POST"
+                onclick="return confirm('確定要刪除「{{this.name}}」？')"
+              >
+                <button class="btn btn-danger ml-2" type="submit">刪除</button>
+              </form>
+            </div>
+          </li>
+        </ul>
+      {{/each}}
+    </div>
+  {{else}}
+    <div
+      class="d-flex flex-column align-items-center mx-1 mt-4 p-5 bg-light rounded"
+    >
+      <h2 class="p-1">無符合條件的項目</h2>
+      <p class="m-0 p-1 text-center">
+        請點選下方「新增支出」建立你的資料<br />/ 重新篩選類別
+      </p>
+    </div>
+  {{/if}}
+  <div class="row my-3">
+    <a class="btn btn-warning col-4 m-auto" href="/items/new">新增支出</a>
+  </div>
+</section>

@@ -31,7 +31,7 @@ router.post("/register", async (req, res) => {
   }
   const newUser = new User({ name, email, password });
   try {
-    const savedUser = await newUser.save();
+    await newUser.save();
     req.flash("success_msg", "註冊成功");
     return res.redirect("/users/login");
   } catch (error) {

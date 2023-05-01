@@ -1,11 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
-const item = require("../../models/item");
-const category = require("../../models/category");
+const Item = require("../../models/item");
+const Category = require("../../models/category");
 
-router.get("/", (req, res) => {
-  res.render("index");
+//show all
+router.get("/", async (req, res) => {
+  const items = await Item.find({}).populate().lean();
+  res.render("index", { items });
+});
+
+//filter
+router.get("/filter", async (req, res) => {
+  const filterItem = await Item.find({}).populate().lean();
+  res.render("index", { filterItem });
 });
 
 module.exports = router;

@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
-const ejs = require("ejs");
-const ejsMate = require("ejs-mate");
+const exphbs = require("express-handlebars");
 const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const session = require("express-session");
@@ -17,8 +16,15 @@ require("./config/passport");
 const app = express();
 
 //middleware
-app.engine("ejs", ejsMate);
-app.set("view engine", "ejs");
+app.engine(
+  "hbs",
+  exphbs.engine({
+    defaultLayout: "main",
+    extname: ".hbs",
+    helpers: require("./config/helper"),
+  })
+);
+app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 app.use(
   session({
@@ -38,6 +44,7 @@ app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.user = req.user;
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
