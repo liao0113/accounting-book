@@ -31,7 +31,7 @@
     </div>
   </form>
   <div class="row mx-1">
-    <div class="col-12 bg-secondary rounded pt-3">
+    <div class="col-12 bg-dark rounded pt-3">
       <h4 class="text-light">總金額：</h4>
       <h1 class="text-right text-warning">
         $<span class="totalAmount">{{totalAmount items}}</span>
@@ -45,7 +45,10 @@
           <li class="list-group-item d-flex px-0 my-2 border-0">
             <div class="col-8 d-flex pr-0 align-items-center">
               <h2 class="m-0 text-info" style="width: 15%">
-                <i class="{{this.categoryId.icon}}"></i>
+                <i
+                  class="{{this.categoryId.icon}}"
+                  style="padding-left: 1rem;"
+                ></i>
               </h2>
               <div class="flex-grow-1 ml-2 text-dark">
                 <h4 class="m-0 mb-1">{{this.name}}</h4>
@@ -64,7 +67,11 @@
                 method="POST"
                 onclick="return confirm('確定要刪除「{{this.name}}」？')"
               >
-                <button class="btn btn-danger ml-2" type="submit">刪除</button>
+                <button
+                  class="btn btn-danger ml-2"
+                  type="submit"
+                  style="margin-top: 1rem;"
+                >刪除</button>
               </form>
             </div>
           </li>

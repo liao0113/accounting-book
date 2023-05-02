@@ -18,7 +18,7 @@
       id="name"
       maxlength="8"
       placeholder="請輸入欲修改的項目名稱"
-      value=""
+      value="{{item.name}}"
       required
     />
   </div>
@@ -33,7 +33,7 @@
       id="date"
       min="2020-01-01"
       max="2025-12-31"
-      value=""
+      value="{{isoDateFormat item.date}}"
       required
     />
   </div>

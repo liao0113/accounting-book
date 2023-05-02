@@ -49,6 +49,7 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
   res.locals.msg = req.flash("msg");
+  console.log(res.locals);
   next();
 });
 
