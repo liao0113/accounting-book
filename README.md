@@ -1,9 +1,9 @@
-##Accounting Book
+# Accounting Book
 
 A project built with [Node.js](https://nodejs.org/en/), [Express.js](https://expressjs.com/), [MongoDB](https://www.mongodb.com/) for you to built your personal expenses.
 Please register an account via email address first, or you may quick login with facebook, cause all the expenses would be keep in your account.
 
-##Features
+## Features
 
 - **REGISTER:** sign up an account with name,email,password
 - **LOGIN:** sing in to review your own expenses
