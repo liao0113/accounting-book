@@ -10,6 +10,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const routes = require("./routes");
+const user = require("./models/user");
 require("./config/mongoose");
 require("./config/passport");
 
@@ -22,6 +23,10 @@ app.engine(
     defaultLayout: "main",
     extname: ".hbs",
     helpers: require("./config/helper"),
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
   })
 );
 app.set("view engine", "hbs");
@@ -43,13 +48,13 @@ app.use(passport.session());
 //flash init
 app.use(flash());
 app.use((req, res, next) => {
+  console.log(req.user);
+  res.locals.currentUser = req.user;
   res.locals.isAuthenticated = req.isAuthenticated();
-  res.locals.user = req.user;
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
   res.locals.msg = req.flash("msg");
-  console.log(res.locals);
   next();
 });
 

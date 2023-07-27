@@ -21,8 +21,16 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
   let { name, email, password, confirmPassword } = req.body;
+  const errors = [];
+  if (password !== confirmPassword) {
+    errors.push({ message: "密碼與確認密碼為必填欄位！" });
+    return res.render("register", {
+      name,
+      email,
+      errors,
+    });
+  }
 
   const emailExist = await User.findOne({ email });
   if (emailExist) {

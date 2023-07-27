@@ -28,7 +28,11 @@
       <div class="container-fluid">
         <!-- customize user name -->
         <a class="navbar-brand" href="/">
-          {{#if isAuthenticated}}{{user.name}}の私帳{{else}}家庭記帳本{{/if}}
+          {{#if isAuthenticated}}
+            {{currentUser.name}}の私帳
+          {{else}}
+            家庭記帳本
+          {{/if}}
         </a>
         <!-- switch login & logout button -->
         {{#if isAuthenticated}}
