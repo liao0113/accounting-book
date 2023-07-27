@@ -5,6 +5,7 @@ const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
+const port = process.env.PORT || 3000;
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -60,6 +61,6 @@ app.use((req, res, next) => {
 
 app.use(routes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Express is listening on http://localhost:${process.env.PORT}`);
+app.listen(port, () => {
+  console.log(`Express is listening on http://localhost:${port}`);
 });
