@@ -3,6 +3,18 @@
 A project built with [Node.js](https://nodejs.org/en/), [Express.js](https://expressjs.com/), [MongoDB](https://www.mongodb.com/) for you to built your personal expenses.
 Please register an account via email address first, or you may quick login with facebook, cause all the expenses would be keep in your account.
 
+🌟 This project is deployed on **[Render](https://accounting-book.onrender.com)** .
+🌟 Please use the **Dummy Data** to login, or register your own account.
+
+## Dummy user data
+
+#### After inserting the seeder, you may use the following dummy data to experience this web application.
+
+| Email             | Password |
+| ----------------- | -------- |
+| user1@example.com | 12345678 |
+| user2@example.com | 12345678 |
+
 ## Features
 
 - **REGISTER:** sign up an account with name,email,password
@@ -14,15 +26,6 @@ Please register an account via email address first, or you may quick login with 
 - **UPDATE:** click the edit button to modify expense's data
 - **DELETE:** click the delete button to delete the data
 - **FILTER:** filter the expense by category
-
-## Dummy user data
-
-#### After inserting the seeder, you may use the following dummy data to experience this web application.
-
-| Email             | Password |
-| ----------------- | -------- |
-| user1@example.com | 12345678 |
-| user2@example.com | 12345678 |
 
 ## Prerequisites
 
